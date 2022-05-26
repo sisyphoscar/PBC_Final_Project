@@ -31,10 +31,8 @@ def getScore(block):
 # main
 if __name__ == "__main__":
     result = pd.DataFrame()
-    # 迴圈換頁數
-    page = 5
-    for i in range(1, page + 1):
-        url = f"https://movies.yahoo.com.tw/movie_intheaters.html?page={i}"
+    for page in range(1,11):
+        url = f"https://movies.yahoo.com.tw/movie_intheaters.html?page={page}"
         soup = getHtml(url)
         block = soup.find_all("div", "release_movie_name")
         score = getScore(block)
