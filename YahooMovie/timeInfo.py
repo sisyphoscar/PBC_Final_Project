@@ -28,11 +28,19 @@ def getTimePage(moviepage):
     result = url_set[3].get("href")  # 時刻表
     return result
 
-# 主頁
+# # 主頁
+# # for moviepage in url_set:
+# #     timePage = getTimePage(moviepage)
+# s = getTimePage(url_set[0])
+# soup2 = getHtml(s)
+
+
+
+
 url = "https://movies.yahoo.com.tw/movie_intheaters.html"
 soup = getHtml(url)
 url_set = getMoviepages(soup)
-# for moviepage in url_set:
-#     timePage = getTimePage(moviepage)
-s = getTimePage(url_set[0])
-soup2 = getHtml(s)
+url = url_set[0]
+soup = getHtml(url)
+s = soup.find("div", "level_name").get_text(strip = True)
+print(s)
