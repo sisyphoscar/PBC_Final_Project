@@ -6,7 +6,6 @@ import pandas as pd
 
 # 獲得 HTML
 def getHtml(url):
-    url = url
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
     return soup
