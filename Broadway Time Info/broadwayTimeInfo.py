@@ -57,7 +57,7 @@ def list2sheet2(names, times, imgs):
         for j in range(1, len(times[i])):
             movie_info.append([names[i], times[i][j], imgs[i]])
 
-    result = pd.DataFrame(movie_info, columns = ["名稱", "場次", "預告片"])
+    result = pd.DataFrame(movie_info, columns = ["名稱", "場次", "封面"])
     return result
 
 def getDataFrame(names, times, imgs):
@@ -70,7 +70,7 @@ def getDataFrame(names, times, imgs):
             time_set.append(times[i][j])
         img = imgs[i]
         movie_info.append(["百老匯", name, time_set, img])
-    result = pd.DataFrame(movie_info, columns = ["劇院", "電影", "場次", "預告片"])
+    result = pd.DataFrame(movie_info, columns = ["影城", "電影", "場次", "封面"])
     return result
 
 # main
