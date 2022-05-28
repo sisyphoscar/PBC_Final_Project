@@ -20,13 +20,19 @@ def getMoviepages(soup):
     return result
 
 
+# 獲得 時刻表 URL
+def getTimePage(moviepage):
+    soup = getHtml(moviepage)  # 電影資訊page
+    block = soup.find("div", "movie_tab")
+    url_set = block.find_all(("a", "gabtn"))
+    result = url_set[3].get("href")  # 時刻表
+    return result
+
+# 主頁
 url = "https://movies.yahoo.com.tw/movie_intheaters.html"
 soup = getHtml(url)
-moviePages = getMoviepages(soup)
-
-# 迴圈 頁面：電影資訊 ->  時刻表
-url = moviePages[0]
-soup = getHtml(url)
-block = soup.find("div", "movie_tab")
-s = block.find_all(("a", "gabtn"))
-url = s[3].get("href")
+url_set = getMoviepages(soup)
+# for moviepage in url_set:
+#     timePage = getTimePage(moviepage)
+s = getTimePage(url_set[0])
+soup2 = getHtml(s)
