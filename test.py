@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import datetime
 import json
+# 記得 pip install lxml
 
 def check_req_url(url): 
     resp = requests.get(url) 
@@ -164,7 +165,6 @@ def getBoxOffice():
 
     # Output
     result = pd.DataFrame(boxOffice, columns = column)
-    print("得到電影票房")
     return result
 
 
@@ -178,12 +178,13 @@ def getMovieClass():
         movie_tag = getMovieTags(url_set)
         single_result = pd.DataFrame(movie_tag, columns = ["電影名稱","分類"])
         result = pd.concat([result, single_result], axis = 0).reset_index(drop = True)
+        if page == 4:
+            print('66%loading')
         if soup.find("li", "nexttxt disabled") == None:
             page += 1
         else:
             break
         print(f"page:{page}")
-    print("得到電影分類")
     return result
 
 def getTimeInfo():
@@ -199,14 +200,18 @@ def getTimeInfo():
         fin = pd.concat([fin,movies],axis=0)
     fin = fin.explode('電影場次')
     # fin.to_csv("電影總覽.csv")
-    print('得到電影場次')
     return fin
 
 if __name__ == "__main__":
-    table1 = getTimeInfo()
-    table2 = getMovieClass()
-    result = pd.merge(table1, table2, on = ["電影名稱"])
-    table3 = getBoxOffice()
-    result = pd.merge(result, table3, on = ["電影名稱"])
-    result.to_csv("電影資訊.csv")
-    print("done")
+    try:
+        print('loading...')
+        table1 = getTimeInfo()
+        print('33%loading...')
+        table2 = getMovieClass()
+        result = pd.merge(table1, table2, on = ["電影名稱"])
+        table3 = getBoxOffice()
+        result = pd.merge(result, table3, on = ["電影名稱"])
+        result.to_csv("電影資訊.csv")
+        print("finished")
+    except Exception as e:
+        print(e)
