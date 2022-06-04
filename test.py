@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import datetime
 import json
-# 記得 pip install lxml
+# pip install lxml
 
 def check_req_url(url): 
     resp = requests.get(url) 
